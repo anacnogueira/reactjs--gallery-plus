@@ -5,7 +5,7 @@ import ChevronRightIcon from "../assets/icons/chevron-right.svg?react";
 import SearchIcon from "../assets/icons/search.svg?react";
 import { useForm } from "react-hook-form";
 import InputSingleFile from "../components/input-single.file";
-import ImageFilePreview from "../components/image-file-preview";    
+import ImagePreview from "../components/image-preview";    
 import Badge from "../components/badge";
 import Alert from "../components/alert";
 import Divider from "../components/divider";
@@ -92,7 +92,7 @@ export default function PageComponents() {
 								form={form}
 								allowedExtensions={["png", "jpg", "jpeg", "webp"]}
 								maxFileSizeInMB={50}
-								replaceBy={<ImageFilePreview src={fileSrc} alt="Imagem"/>}
+								replaceBy={<ImagePreview src={fileSrc} alt="Imagem"/>}
 								{...form.register("file")}
 							/>
 						</DialogBody>
