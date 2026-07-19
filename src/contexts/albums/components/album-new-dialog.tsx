@@ -3,10 +3,10 @@ import Button from "../../../components/button";
 import { Dialog, DialogBody, DialogContent, DialogFooter, DialogTrigger } from "../../../components/dialog";
 import InputText from "../../../components/input-text";
 import Text from "../../../components/text";
-import ImagePreview from "../../../components/image-preview";
 import Skeleton from "../../../components/skeleton";
 import SelectCheckboxIllustration from "../../../assets/images/select-checkbox.svg?react";
 import type { Photo } from "../../photos/models/photo";
+import PhotoImageSelectable from "../../photos/components/photo-image-selectable";
 
 interface AlbumNewDialogProps {
     trigger: React.ReactNode;
@@ -15,6 +15,10 @@ interface AlbumNewDialogProps {
 export default function AlbumNewDialog({
     trigger
 }: AlbumNewDialogProps) {
+    function handleTogglePhoto(selected: boolean, photoId: string) {
+        console.log(selected, photoId);
+    }
+
     const isLoadingPhotos = false;
     const photos: Photo[] = [
     {
@@ -51,11 +55,14 @@ export default function AlbumNewDialog({
                         {!isLoadingPhotos && photos.length > 0 && (
                             <div className="flex flex-wrap gap-2">
                                 { photos.map((photo)=> (
-                                    <ImagePreview
+                                    <PhotoImageSelectable
                                         key={photo.id}
                                         src={`/images/${photo.imageId}`}
                                         title={photo.title}
-                                        className="w-20 h-20 rounded"
+                                        imageClassName="w-20 h-20"
+                                        onSelectImage={(selected) =>
+                                            handleTogglePhoto(selected, photo.id)
+                                        }
                                     />
                                 ))}
                             </div>
@@ -66,7 +73,7 @@ export default function AlbumNewDialog({
                                 {Array.from({ length: 4 }).map((_, index) => (
                                 <Skeleton
                                     key={`photo-loading-${index}`}
-                                    className="w-20 h-20 rounded"
+                                    className="w-20 h-20 rounded-lg"
                                 />
                                 ))}
                             </div>
