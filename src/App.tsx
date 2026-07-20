@@ -1,7 +1,7 @@
 import {BrowserRouter, Route, Routes} from "react-router";
 import PageComponents from "./pages/page-components";
 import LayoutMain from "./pages/layout-main";
-import PageHome from "./pages/pagr-home";
+import PageHome from "./pages/page-home";
 import PagePhotoDetails from "./pages/page-photo-details";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 

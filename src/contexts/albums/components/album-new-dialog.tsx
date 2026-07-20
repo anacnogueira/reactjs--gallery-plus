@@ -5,8 +5,8 @@ import InputText from "../../../components/input-text";
 import Text from "../../../components/text";
 import Skeleton from "../../../components/skeleton";
 import SelectCheckboxIllustration from "../../../assets/images/select-checkbox.svg?react";
-import type { Photo } from "../../photos/models/photo";
 import PhotoImageSelectable from "../../photos/components/photo-image-selectable";
+import usePhotos from "../../photos/hooks/use-photos";
 
 interface AlbumNewDialogProps {
     trigger: React.ReactNode;
@@ -15,33 +15,12 @@ interface AlbumNewDialogProps {
 export default function AlbumNewDialog({
     trigger
 }: AlbumNewDialogProps) {
+    const { photos, isLoadingPhotos } = usePhotos();
+
     function handleTogglePhoto(selected: boolean, photoId: string) {
         console.log(selected, photoId);
-    }
+    }    
 
-    const isLoadingPhotos = false;
-    const photos: Photo[] = [
-    {
-      id: "123",
-      title: "Olá mundo!",
-      imageId: "portrait-tower.png",
-      albums: [
-        { id: "3421", title: "Album 1" },
-        { id: "123", title: "Album 2" },
-        { id: "456", title: "Album 3" },
-      ],
-    },
-    {
-      id: "321",
-      title: "Olá mundo!",
-      imageId: "portrait-tower.png",
-      albums: [
-        { id: "3421", title: "Album 1" },
-        { id: "123", title: "Album 2" },
-        { id: "456", title: "Album 3" },
-      ],
-    },
-  ];
     return (
         <Dialog>
             <DialogTrigger asChild>{trigger}</DialogTrigger>
@@ -57,7 +36,7 @@ export default function AlbumNewDialog({
                                 { photos.map((photo)=> (
                                     <PhotoImageSelectable
                                         key={photo.id}
-                                        src={`/images/${photo.imageId}`}
+                                        src={`${import.meta.env.VITE_IMAGES_URL}/${photo.imageId}`}
                                         title={photo.title}
                                         imageClassName="w-20 h-20"
                                         onSelectImage={(selected) =>
