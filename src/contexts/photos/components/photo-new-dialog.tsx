@@ -1,4 +1,4 @@
-import type React from "react";
+import React from "react";
 import { Dialog, DialogBody, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTrigger } from "../../../components/dialog";
 import Button from "../../../components/button";
 import InputText from "../../../components/input-text";
@@ -17,6 +17,8 @@ interface PhotoNewDialogProps {
 }
 
 export default function PhotoNewDialog({ trigger }: PhotoNewDialogProps) {
+    const [modalOpen, setModalOpen] = React.useState(false);
+
     const form = useForm<PhotoNewFormSchema>({
         resolver: zodResolver(photoNewFormSchema),
     });
@@ -26,12 +28,19 @@ export default function PhotoNewDialog({ trigger }: PhotoNewDialogProps) {
     const file = form.watch("file");
     const fileSrc = file?.[0] ? URL.createObjectURL(file[0]) : undefined;
 
+    React.useEffect(() => {
+        if (!modalOpen) {
+            form.reset();
+        }
+        
+    }, [modalOpen, form])
+
     function handleSubmit(payload: PhotoNewFormSchema) {
         console.log(payload);
     }
 
     return (
-        <Dialog>
+        <Dialog open={modalOpen} onOpenChange={setModalOpen}>
             <DialogTrigger asChild>{trigger}</DialogTrigger>
             <DialogContent>
                 <form onSubmit={form.handleSubmit(handleSubmit)}>
