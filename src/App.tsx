@@ -5,13 +5,16 @@ import PageHome from "./pages/page-home";
 import PagePhotoDetails from "./pages/page-photo-details";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import { NuqsAdapter } from 'nuqs/adapters/react'
+import { Toaster } from 'sonner'
+
 
 export default function App() {
 	const queryClient = new QueryClient();
 	
 	return (
 		<QueryClientProvider client={queryClient}>
-			<NuqsAdapter>			
+			<NuqsAdapter>
+				<Toaster position="bottom-center" />
 				<BrowserRouter>
 					<Routes>
 						<Route element={<LayoutMain />}>
