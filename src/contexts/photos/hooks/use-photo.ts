@@ -18,8 +18,7 @@ export default function usePhoto(id?: string) {
     const queryClient = useQueryClient();
 
 
-    async function createPhoto(payload: PhotoNewFormSchema) {
-         
+    async function createPhoto(payload: PhotoNewFormSchema) {         
         try{
             const {data: photo} = await api.post<Photo>("/photos", {
                     title: payload.title,
@@ -47,9 +46,7 @@ export default function usePhoto(id?: string) {
         } catch (error) {
             toast.error("Erro ao criar foto");
             throw error;
-        }
-
-       
+        }       
     }
 
     return {
